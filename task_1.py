@@ -1,10 +1,16 @@
 x = float(input())
 y = float(input())
-## 1
-# print(x+y, x*y)
-## 2
-# print(max(x+y, x-y, x*y, x/y, x//y))
-## 3
+
+
+# 1
+print(x+y, x*y)
+
+
+# 2
+print(max(x+y, x-y, x*y, x/y, x//y))
+
+
+# 3
 a=0
 b=0
 if x+y>x-y:
