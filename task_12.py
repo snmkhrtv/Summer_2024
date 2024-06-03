@@ -11,13 +11,11 @@ min_ind, max_ind = ind(lst)
 print(min_ind, max_ind)
 
 #2
-
 import itertools
 
 a = [print(item) for i in range(10) for item in itertools.repeat(i,i) if i<10]
 
 #3
-
 str = input()
 
 def numbers(str):
