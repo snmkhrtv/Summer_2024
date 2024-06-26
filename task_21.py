@@ -5,6 +5,7 @@ matrix = [
     [1, 5, 1, 0, 1],
     [4, 2, 1, 0, 1]
 ]
+
 def min_path(matrix):
     rows = len(matrix)
     cols = len(matrix[0])
