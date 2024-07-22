@@ -17,6 +17,11 @@ selected_tiles = None
 color_style = None
 column_name = None
 gdf = None
+pokaz_cbx = None
+color_cbx = None
+tiles_cbx = None
+file_name = None
+region_cbx = None
 
 
 def on_tile_layer_select(event):
@@ -39,11 +44,11 @@ def on_color_selected(event):
 
 def on_pokaz_select(event):
     global column_name, pokaz_cbx
-    pokazateli = {"Численность населения":"pop",
-                  "Плотность населения":"density"}
-    if pokaz_cbx.get() in pokazateli:
-        column_name = pokazateli.get(pokaz_cbx.get())
-    elif pokaz_cbx.get()=="Районы": column_name = "district"
+    pokazateli = {"Численность населения": "pop",
+                  "Плотность населения": "density",
+                  "Районы": "district"}
+    column_name = pokazateli.get(pokaz_cbx.get())
+
 
 def save_folium_map():
     global file_name, column_name, selected_tiles, color_style
@@ -52,11 +57,12 @@ def save_folium_map():
                     popup=True,
                     tiles=selected_tiles,
                     cmap=color_style,
-                    style_kwds=dict(color="black", weight = 1))
+                    style_kwds=dict(color="black", weight=1))
     m.save(file_name.get() + '.html')
     new = 2
     url = "file:///" + os.path.realpath(file_name.get() + '.html')
     webbrowser.open(url, new=new)
+
 
 def save_matplotlib_map():
     global column_name, color_style, file_name, gdf
@@ -70,11 +76,10 @@ def save_matplotlib_map():
                       ).set_axis_off()
     else:
         m = path.plot(column=column_name, legend=True, cmap=color_style, edgecolor='black', linewidth=0.5,
-                      legend_kwds={"label": f_name, "orientation":"horizontal"}
+                      legend_kwds={"label": f_name, "orientation": "horizontal"}
                       ).set_axis_off()
 
-
-    plt.savefig(file_name.get()+ '.pdf')
+    plt.savefig(file_name.get() + '.pdf')
     plt.show()
 
 
