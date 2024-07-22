@@ -22,6 +22,8 @@ color_cbx = None
 tiles_cbx = None
 file_name = None
 region_cbx = None
+sel_loc = None
+zoom = None
 
 
 def on_tile_layer_select(event):
@@ -34,7 +36,7 @@ def on_location_select(event):
     if region_cbx.get() == "Россия":
         gdf = gpd.read_file("Russia_regions.geojson")
     elif region_cbx.get() == "Санкт-Петербург":
-        gdf = gpd.read_file("../spb_d.geojson")
+        gdf = gpd.read_file("spb_d.geojson")
 
 
 def on_color_selected(event):
@@ -48,7 +50,6 @@ def on_pokaz_select(event):
                   "Плотность населения": "density",
                   "Районы": "district"}
     column_name = pokazateli.get(pokaz_cbx.get())
-
 
 
 def save_folium_map():
@@ -104,7 +105,7 @@ def select_library():
         tile_label.grid(row=3, column=0, padx=15, sticky='e')
 
         tiles_cbx = ttk.Combobox(win, values=["Mapbox Bright", "Mapbox Control Room",
-                                         "cartodbpositron", "cartodbdark_matter", "openstreetmap"])
+                                              "cartodbpositron", "cartodbdark_matter", "openstreetmap"])
         tiles_cbx.grid(row=3, column=1)
         tiles_cbx.bind("<<ComboboxSelected>>", on_tile_layer_select)
 
