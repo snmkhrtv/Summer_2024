@@ -5,12 +5,13 @@ import webbrowser
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import os
+import pandas as pd
 
 win = tk.Tk()
 win.title('EasyMap')
 win.geometry("450x250+500+100")
 win.resizable(False, False)
-icon = tk.PhotoImage(file='../icon.png')
+icon = tk.PhotoImage(file='icon.png')
 win.iconphoto(False, icon)
 
 selected_tiles = None
@@ -34,7 +35,9 @@ def on_tile_layer_select(event):
 def on_location_select(event):
     global sel_loc, zoom, region_cbx, gdf
     if region_cbx.get() == "Россия":
-        gdf = gpd.read_file("Russia_regions.geojson")
+        gdf_1 = gpd.read_file("Russia_regions.geojson")
+        df = pd.read_csv("Russia_info.csv", delimiter=';')
+        gdf = gdf_1.merge(df, on='region')
     elif region_cbx.get() == "Санкт-Петербург":
         gdf = gpd.read_file("spb_d.geojson")
 
@@ -54,12 +57,21 @@ def on_pokaz_select(event):
 
 def save_folium_map():
     global file_name, column_name, selected_tiles, color_style
-    m = gdf.explore(column=column_name,
-                    tooltip="district",
-                    popup=True,
-                    tiles=selected_tiles,
-                    cmap=color_style,
-                    style_kwds=dict(color="black", weight=1))
+    if region_cbx.get() == "Россия":
+        m = gdf.explore(column=column_name,
+                        tooltip="region",
+                        popup=True,
+                        tiles=selected_tiles,
+                        cmap=color_style,
+                        style_kwds=dict(color="black", weight=1))
+    elif region_cbx.get() == "Санкт-Петербург":
+        m = gdf.explore(column=column_name,
+                        tooltip="district",
+                        popup=True,
+                        tiles=selected_tiles,
+                        cmap=color_style,
+                        style_kwds=dict(color="black", weight=1))
+
     m.save(file_name.get() + '.html')
     new = 2
     url = "file:///" + os.path.realpath(file_name.get() + '.html')
