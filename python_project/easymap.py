@@ -45,6 +45,7 @@ def on_pokaz_select(event):
         column_name = pokazateli.get(pokaz_cbx.get())
     elif pokaz_cbx.get()=="Районы": column_name = "district"
 
+
 def save_folium_map():
     global file_name, column_name, selected_tiles, color_style
     m = gdf.explore(column=column_name,
@@ -57,6 +58,7 @@ def save_folium_map():
     new = 2
     url = "file:///" + os.path.realpath(file_name.get() + '.html')
     webbrowser.open(url, new=new)
+
 
 def save_matplotlib_map():
     global column_name, color_style, file_name, gdf
@@ -97,8 +99,7 @@ def select_library():
         tile_label = ttk.Label(win, text="Выберите тайлы")
         tile_label.grid(row=3, column=0, padx=15, sticky='e')
 
-        tiles_cbx = ttk.Combobox(win,
-                                 values=["Mapbox Bright", "Mapbox Control Room",
+        tiles_cbx = ttk.Combobox(win, values=["Mapbox Bright", "Mapbox Control Room",
                                          "cartodbpositron", "cartodbdark_matter", "openstreetmap"])
         tiles_cbx.grid(row=3, column=1)
         tiles_cbx.bind("<<ComboboxSelected>>", on_tile_layer_select)
