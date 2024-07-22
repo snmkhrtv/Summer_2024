@@ -50,6 +50,7 @@ def on_pokaz_select(event):
     column_name = pokazateli.get(pokaz_cbx.get())
 
 
+
 def save_folium_map():
     global file_name, column_name, selected_tiles, color_style
     m = gdf.explore(column=column_name,
@@ -102,8 +103,7 @@ def select_library():
         tile_label = ttk.Label(win, text="Выберите тайлы")
         tile_label.grid(row=3, column=0, padx=15, sticky='e')
 
-        tiles_cbx = ttk.Combobox(win,
-                                 values=["Mapbox Bright", "Mapbox Control Room",
+        tiles_cbx = ttk.Combobox(win, values=["Mapbox Bright", "Mapbox Control Room",
                                          "cartodbpositron", "cartodbdark_matter", "openstreetmap"])
         tiles_cbx.grid(row=3, column=1)
         tiles_cbx.bind("<<ComboboxSelected>>", on_tile_layer_select)
